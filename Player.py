@@ -25,10 +25,10 @@ class Player:
         """Update the ship's position based on the movement flag."""
         if (self.moving_right and self.rect.x <= self.settings.screen_width - 60):
             self.rect.x += 1
-            print("right")
+            #print("right")
         if (self.moving_left and self.rect.x >= 0):
             self.rect.x -= 1
-            print("left")
+            #print("left")
 
 
 
