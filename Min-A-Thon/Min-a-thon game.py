@@ -2,6 +2,7 @@ import sys
 import pygame
 from settings import Settings
 from Player import Player
+from interactable import Store, Mining
 
 
 class MinAThon:
@@ -14,6 +15,7 @@ class MinAThon:
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
         pygame.display.set_caption("Alien Invasion")
         self.player = Player(self)
+        self.store = Store(200,'pygame.K_e', self)
 
     def run_game(self):
         """Start the main loop for the game."""
@@ -33,6 +35,10 @@ class MinAThon:
                     self.player.moving_right = True
                 if event.key == pygame.K_LEFT:
                     self.player.moving_left = True
+                if self.player.rect.x > 1100:
+                    if event.key == pygame.K_e:
+                        self.player.mine()
+                        print(self.player.gold)
             elif event.type == pygame.KEYUP:
                 if event.key == pygame.K_RIGHT:
                     self.player.moving_right = False
@@ -44,6 +50,7 @@ class MinAThon:
         """Update images on the screen, and flip to the new screen."""
         self.screen.fill(self.settings.bg_color)
         self.player.blitme()
+        self.store.blitme()
         pygame.display.flip()
 
         
