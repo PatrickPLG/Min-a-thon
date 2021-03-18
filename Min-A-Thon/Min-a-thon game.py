@@ -1,5 +1,7 @@
 import sys
 import pygame
+import random
+import string
 from settings import Settings
 from Player import Player
 from interactable import Store, Mining
@@ -18,6 +20,7 @@ class MinAThon:
         self.mine = Mining('pygame.K_e', self)
         self.store = Store('pygame.K_r', self)
         self.player = Player(self)
+        self.list = list(string.ascii_lowercase)
 
     def run_game(self):
         """Start the main loop for the game."""
@@ -39,6 +42,9 @@ class MinAThon:
                     self.player.moving_left = True
                 if self.player.rect.colliderect(self.mine):
                     if event.key == pygame.K_e:
+                        random_sequence = random.sample(self.list, 3)
+                        print(random_sequence)
+                        print(p)
                         self.player.mine()
                         print(self.player.gold)
             elif event.type == pygame.KEYUP:
