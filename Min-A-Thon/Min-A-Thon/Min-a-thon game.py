@@ -1,7 +1,10 @@
 import sys
 import pygame
+import random
+import string
 from settings import Settings
 from Player import Player
+from interactable import Store, Mining
 
 
 class MinAThon:
@@ -20,13 +23,26 @@ class MinAThon:
 
         # inits self.player as Player with self as a positional argument
         self.player = Player(self)
+        self.list = list(string.ascii_lowercase)
+
+        self.black=(0,0,0)
+        self.myFontBig = pygame.font.SysFont("Times New Roman", 36)
+        self.myFont = pygame.font.SysFont("Times New Roman", 18)
+        #self.display_gold = 
+
+        self.random_sequence = []
+        self.user_sequence = []
+
 
     def run_game(self):
         """Start the main loop for the game."""
         while True:
+            self._update_screen()
             self._check_events()
             self.player.update()
-            self._update_screen()
+            
+            self.run_sequence_game = False
+            
 
     def _check_events(self):
         """Respond to keypresses and mouse events."""
@@ -39,6 +55,8 @@ class MinAThon:
                     self.player.moving_right = True
                 if event.key == pygame.K_LEFT:
                     self.player.moving_left = True
+
+
                 # Checks for player collision with the mine and if the player has pressed 'e'
                 if self.player.rect.colliderect(self.mine) and event.key == pygame.K_e:
                     self.run_sequence_game = True
@@ -55,7 +73,6 @@ class MinAThon:
                     self.player.moving_right = False
                 if event.key == pygame.K_LEFT:
                     self.player.moving_left = False
-
     def store_buy(self):
         while self.player_buying == True:
             for event in pygame.event.get():
@@ -109,8 +126,14 @@ class MinAThon:
     def _update_screen(self):
         """Update images on the screen, and flip to the new screen."""
         self.screen.fill(self.settings.bg_color)
+        
+        self.mine.blitme()
+        self.screen.blit(self.myFontBig.render("Gold: "+str(self.player.gold), 1, self.black), (self.settings.screen_width/2, self.settings.screen_height/2))
+        self.screen.blit(self.myFont.render("Sequence: "+str(self.random_sequence), 1, self.black), (30, 650))
+        self.store.blitme()
         self.player.blitme()
         pygame.display.flip()
+        
 
         
 

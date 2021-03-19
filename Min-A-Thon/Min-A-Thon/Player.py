@@ -35,7 +35,6 @@ class Player:
     def mine(self):
         self.gold += 1
 
-
     def buy(self):
         self.gold -= 1
 
