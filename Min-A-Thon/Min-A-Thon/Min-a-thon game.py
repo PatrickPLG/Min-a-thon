@@ -129,7 +129,8 @@ class MinAThon:
         
         self.mine.blitme()
         self.screen.blit(self.myFontBig.render("Gold: "+str(self.player.gold), 1, self.black), (self.settings.screen_width/2, self.settings.screen_height/2))
-        self.screen.blit(self.myFont.render("Sequence: "+str(self.random_sequence), 1, self.black), (30, 650))
+        if self.player.rect.colliderect(self.mine):
+            self.screen.blit(self.myFont.render("Sequence: "+str(self.random_sequence), 1, self.black), (30, 650))
         self.store.blitme()
         self.player.blitme()
         pygame.display.flip()
