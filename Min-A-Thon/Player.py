@@ -11,7 +11,7 @@ class Player:
         self.screen_rect = ai_game.screen.get_rect()
 
         # Load the ship image and get its rect.
-        self.image = pygame.image.load('images/ship.bmp')
+        self.image = pygame.image.load('images/minerf0.png')
         self.rect = self.image.get_rect()
 
         # Start each new ship at the bottom center of the screen.
@@ -21,17 +21,23 @@ class Player:
         self.moving_right = False
         self.moving_left = False
 
+        self.gold = 0
+
     def update(self):
         """Update the ship's position based on the movement flag."""
         if (self.moving_right and self.rect.x <= self.settings.screen_width - 60):
             self.rect.x += 1
-            print("right")
+            #print("right")
         if (self.moving_left and self.rect.x >= 0):
             self.rect.x -= 1
-            print("left")
+            #print("left")
+
+    def mine(self):
+        self.gold += 1
 
 
-
+    def buy(self):
+        self.gold -= 1
 
 
     def blitme(self):
