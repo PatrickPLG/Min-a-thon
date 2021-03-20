@@ -21,7 +21,8 @@ class Player:
         self.moving_right = False
         self.moving_left = False
 
-        self.gold = 0
+        self.gold = 100.0
+        self.goldmulti = 1
 
     def update(self):
         """Update the ship's position based on the movement flag."""
@@ -33,10 +34,10 @@ class Player:
             #print("left")
 
     def mine(self):
-        self.gold += 1
-
-    def buy(self):
-        self.gold -= 1
+        self.gold += 1 * self.goldmulti
+    
+    def goldmultiply(self):
+        self.goldmulti = self.goldmulti * 2
 
 
     def blitme(self):
