@@ -48,6 +48,21 @@ class MinAThon:
         self.time_elapsed_since_last_popup = 0
         self.popup = False
 
+        # Soundeffects
+        self.hit1 = pygame.mixer.Sound('soundeffects/hit1.wav')
+        self.hit2 = pygame.mixer.Sound('soundeffects/hit2.wav')
+        self.hit3 = pygame.mixer.Sound('soundeffects/hit3.wav')
+        self.hit4 = pygame.mixer.Sound('soundeffects/hit4.wav')
+        self.hit5 = pygame.mixer.Sound('soundeffects/hit5.wav')
+        self.wrong = pygame.mixer.Sound('soundeffects/wrong.wav')
+
+        self.random_mine_effect = []
+        self.random_mine_effect.append(self.hit1)
+        self.random_mine_effect.append(self.hit2)
+        self.random_mine_effect.append(self.hit3)
+        self.random_mine_effect.append(self.hit4)
+        self.random_mine_effect.append(self.hit5)
+
 
     def run_game(self):
         """Start the main loop for the game."""
@@ -164,13 +179,12 @@ class MinAThon:
                     if len(self.user_sequence) == 3:
                         if self.user_sequence == self.random_sequence:
                             self.player.mine()
-                            print(self.player.gold)
+                            random.choice(self.random_mine_effect).play()
                             self.random_sequence.clear()
                             self.run_sequence_game = False
                         else:
-                            print("Passer ikke")
-                            print(self.player.gold)
                             self.random_sequence.clear()
+                            self.wrong.play()
                             #https://stackoverflow.com/questions/55757109/how-to-display-text-for-2-seconds-in-pygame
                             self.run_sequence_game = False
                     
