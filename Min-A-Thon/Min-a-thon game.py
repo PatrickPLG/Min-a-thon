@@ -55,6 +55,7 @@ class MinAThon:
         self.hit4 = pygame.mixer.Sound('soundeffects/hit4.wav')
         self.hit5 = pygame.mixer.Sound('soundeffects/hit5.wav')
         self.wrong = pygame.mixer.Sound('soundeffects/wrong.wav')
+        self.shop = pygame.mixer.Sound('soundeffects/shop.wav')
 
         self.random_mine_effect = []
         self.random_mine_effect.append(self.hit1)
@@ -95,7 +96,7 @@ class MinAThon:
                 # Checks for player collision with the store and if the player has pressed 'e'
                 if self.player.rect.colliderect(self.store) and event.key == pygame.K_e:
                     self.player_buying = True
-                    print("Opened store")
+                    self.shop.play()
                     self.store_buy()
                     
                         
