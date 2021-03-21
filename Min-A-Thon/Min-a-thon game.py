@@ -165,10 +165,12 @@ class MinAThon:
                         if self.user_sequence == self.random_sequence:
                             self.player.mine()
                             print(self.player.gold)
+                            self.random_sequence.clear()
                             self.run_sequence_game = False
                         else:
                             print("Passer ikke")
                             print(self.player.gold)
+                            self.random_sequence.clear()
                             #https://stackoverflow.com/questions/55757109/how-to-display-text-for-2-seconds-in-pygame
                             self.run_sequence_game = False
                     
