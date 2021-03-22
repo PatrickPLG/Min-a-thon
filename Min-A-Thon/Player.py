@@ -27,10 +27,10 @@ class Player:
     def update(self):
         """Update the ship's position based on the movement flag."""
         if (self.moving_right and self.rect.x <= self.settings.screen_width - 60):
-            self.rect.x += 2.5
+            self.rect.x += 8
             #print("right")
         if (self.moving_left and self.rect.x >= 0):
-            self.rect.x -= 2.5
+            self.rect.x -= 8
             #print("left")
 
     def mine(self):
