@@ -80,36 +80,46 @@ class MinAThon:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
-
+            # Checks for keydown event
             elif event.type == pygame.KEYDOWN:
+                # If key is right arrow key
                 if event.key == pygame.K_RIGHT:
+                    # Set player is moving right to true
                     self.player.moving_right = True
+                # if key is left arrow key
                 if event.key == pygame.K_LEFT:
+                    # Set player moving left to true
                     self.player.moving_left = True
-
-
                 # Checks for player collision with the mine and if the player has pressed 'e'
                 if self.player.rect.colliderect(self.mine) and event.key == pygame.K_e:
                     self.run_sequence_game = True
                     self.sequence_game()
-
                 # Checks for player collision with the store and if the player has pressed 'e'
                 if self.player.rect.colliderect(self.store) and event.key == pygame.K_e:
                     self.player_buying = True
                     self.shop.play()
                     self.store_buy()
                     
-                        
+            # Check for keyup event     
             elif event.type == pygame.KEYUP:
+                # If the key is right arrow key
                 if event.key == pygame.K_RIGHT:
+                    # Set player moving right to false
                     self.player.moving_right = False
+                # If the key is left arrow key
                 if event.key == pygame.K_LEFT:
+                    # Set player moving left to false
                     self.player.moving_left = False
+
     def store_buy(self):
         while self.player_buying == True:
             for event in pygame.event.get():
+                # If player presses the key 0, 1, 2 or 3
+                # Check for every corresponding autoclicker if the player
+                # Has enough money for it. If true
+                # Minus the price from the players gold and incrase the price and number
+                # of the corresponding autoclicker and make the player leave the shop
                 if event.type == pygame.KEYDOWN:
-                    #key = pygame.key.name(event.key)
                     if event.key == pygame.K_2 and self.player.gold >= self.pickaxe.price:
                         self.player.gold -= self.pickaxe.price
                         self.pickaxe.newPrice()
@@ -137,13 +147,12 @@ class MinAThon:
                         self.player_buying = False
                     else:
                         self.player_buying = False
-    def autoclickers(self):
-        # the following method returns the time since its last call in milliseconds
-        # it is good practice to store it in a variable called 'dt'
-        dt = self.clock.tick() 
 
+    def autoclickers(self):
+        # For every 1 second check if the player has any of the autoclickers
+        # if true plus the multiplier with the amount of the player has
+        dt = self.clock.tick() 
         self.time_elapsed_since_last_action += dt
-        # dt is measured in milliseconds, therefore 1000 ms = 1 seconds
         if self.time_elapsed_since_last_action > 1000:
             if self.pickaxe.number > 0:
                 self.player.gold += self.pickaxe.multiplier
@@ -162,8 +171,6 @@ class MinAThon:
         self._update_screen()
         # Empties user_sequence
         self.user_sequence = []
-        # ~DEBUG~ prints random sequence in console
-        print(self.random_sequence)
         
 
         # If the run_sequence_game is true, the game will lock the keyboard and check for keys
@@ -188,15 +195,13 @@ class MinAThon:
                         else:
                             self.random_sequence.clear()
                             self.wrong.play()
-                            #https://stackoverflow.com/questions/55757109/how-to-display-text-for-2-seconds-in-pygame
                             self.run_sequence_game = False
-                    
+                # If the event is equal to pygame.QUIT (The quit icon), exit the game
                 elif event.type == pygame.QUIT:
                     sys.exit()
     def _update_screen(self):
         """Update images on the screen, and flip to the new screen."""
         self.screen.fill(self.settings.bg_color)
-        
         self.mine.blitme()
         self.screen.blit(self.myFontBig.render("Gold: "+str(round(self.player.gold,2)), 1, self.black), (self.settings.screen_width/2.25, self.settings.screen_height/2))
         self.screen.blit(self.myFont.render("Click 'E' to interact", 1, self.black), (self.settings.screen_width/2.25, self.settings.screen_height/1.80))
@@ -210,10 +215,6 @@ class MinAThon:
         self.store.blitme()
         self.player.blitme()
         pygame.display.flip()
-        
-
-        
-
 
 if __name__ == '__main__':
     # Make a game instance, and run the game.
