@@ -16,6 +16,7 @@ class MinAThon:
         self.settings = Settings()
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
         pygame.display.set_caption("Min-a-thon")
+        self.bg = pygame.image.load("images/background.png")
         
         # inits the mine and the store with the key e and self as positional arguments
         self.mine = Mining('pygame.K_e', self)
@@ -201,7 +202,8 @@ class MinAThon:
                     sys.exit()
     def _update_screen(self):
         """Update images on the screen, and flip to the new screen."""
-        self.screen.fill(self.settings.bg_color)
+        #self.screen.fill(self.settings.bg_color)
+        self.screen.blit(bg, (0, 0))
         self.mine.blitme()
         self.screen.blit(self.myFontBig.render("Gold: "+str(round(self.player.gold,2)), 1, self.black), (self.settings.screen_width/2.25, self.settings.screen_height/2))
         self.screen.blit(self.myFont.render("Click 'E' to interact", 1, self.black), (self.settings.screen_width/2.25, self.settings.screen_height/1.80))
