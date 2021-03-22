@@ -203,7 +203,7 @@ class MinAThon:
     def _update_screen(self):
         """Update images on the screen, and flip to the new screen."""
         #self.screen.fill(self.settings.bg_color)
-        self.screen.blit(bg, (0, 0))
+        self.screen.blit(self.bg, (0, 0))
         self.mine.blitme()
         self.screen.blit(self.myFontBig.render("Gold: "+str(round(self.player.gold,2)), 1, self.black), (self.settings.screen_width/2.25, self.settings.screen_height/2))
         self.screen.blit(self.myFont.render("Click 'E' to interact", 1, self.black), (self.settings.screen_width/2.25, self.settings.screen_height/1.80))
