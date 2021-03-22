@@ -172,7 +172,7 @@ class MinAThon:
                     # it will append to self.user_sequence and print the sequence in console
                     if len(self.user_sequence) != 3:
                         self.user_sequence.append(key)
-                    print(self.user_sequence)
+                    #print(self.user_sequence)
 
                     # If the amount of keys pressed is equal to 3
                     # then the program will check if it matches 
