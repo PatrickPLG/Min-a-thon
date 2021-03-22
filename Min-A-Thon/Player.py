@@ -21,7 +21,7 @@ class Player:
         self.moving_right = False
         self.moving_left = False
 
-        self.gold = 100.0
+        self.gold = 0.0
         self.goldmulti = 1
 
     def update(self):
