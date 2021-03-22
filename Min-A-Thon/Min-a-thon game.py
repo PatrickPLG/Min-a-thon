@@ -154,14 +154,17 @@ class MinAThon:
             self.time_elapsed_since_last_action = 0 # reset it to 0 so you can count again
 
     def sequence_game(self):
-        # Generates an array from self.list, using three characters
-        self.random_sequence = random.sample(self.list, 3)
+        # Random number used for sequence length
+        self.random_sequence_length = random.randint(3,5)
+        # Generates an array from self.list, using 3 to 5 characters
+        self.random_sequence = random.sample(self.list, self.random_sequence_length)
         # Updates screen
         self._update_screen()
         # Empties user_sequence
         self.user_sequence = []
         # ~DEBUG~ prints random sequence in console
         print(self.random_sequence)
+        
 
         # If the run_sequence_game is true, the game will lock the keyboard and check for keys
         while self.run_sequence_game == True:
@@ -170,14 +173,13 @@ class MinAThon:
                     key = pygame.key.name(event.key)
                     # If the amount of keys pressed isn't equal to 3
                     # it will append to self.user_sequence and print the sequence in console
-                    if len(self.user_sequence) != 3:
+                    if len(self.user_sequence) != self.random_sequence_length:
                         self.user_sequence.append(key)
-                    #print(self.user_sequence)
 
                     # If the amount of keys pressed is equal to 3
                     # then the program will check if it matches 
                     # and award points using self.player.mine and return self.run_sequnce_game to False
-                    if len(self.user_sequence) == 3:
+                    if len(self.user_sequence) == self.random_sequence_length:
                         if self.user_sequence == self.random_sequence:
                             self.player.mine()
                             random.choice(self.random_mine_effect).play()
@@ -196,7 +198,8 @@ class MinAThon:
         self.screen.fill(self.settings.bg_color)
         
         self.mine.blitme()
-        self.screen.blit(self.myFontBig.render("Gold: "+str(round(self.player.gold,2)), 1, self.black), (self.settings.screen_width/2, self.settings.screen_height/2))
+        self.screen.blit(self.myFontBig.render("Gold: "+str(round(self.player.gold,2)), 1, self.black), (self.settings.screen_width/2.25, self.settings.screen_height/2))
+        self.screen.blit(self.myFont.render("Click 'E' to interact", 1, self.black), (self.settings.screen_width/2.25, self.settings.screen_height/1.80))
         if self.player.rect.colliderect(self.mine):
             self.screen.blit(self.myFont.render("Sequence: "+str(self.random_sequence), 1, self.black), (30, 650))
         if self.player.rect.colliderect(self.store):
